@@ -1,0 +1,29 @@
+{
+  "name": "cse340-course-repo",
+  "version": "1.0.0",
+  "description": "This repository contains my work for CSE 340 – Web Backend Development, focused on building dynamic, database-driven web applications using Node.js, Express.js, PostgreSQL, and MVC architecture. It showcases hands-on experience with authentication, CRUD operations, server-side validation, and deployment practices.",
+  "homepage": "https://github.com/imaosazee4github/cse340-course-repo#readme",
+  "bugs": {
+    "url": "https://github.com/imaosazee4github/cse340-course-repo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/imaosazee4github/cse340-course-repo.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon",
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "ejs": "^5.0.2",
+    "express": "^5.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}
