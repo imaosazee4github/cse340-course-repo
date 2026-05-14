@@ -1,30 +1,36 @@
 <%- include('partials/header') %>
-    <main class="organizations-page">
 
-        <section class="page-header">
-            <h1><%= title %></h1>
-            <p>Here are a few of our partner organizations:</p>
-        </section>
-        
-       <section class="organization-grid">
-        <article class="organization-card">
-            <img src="/images/brightfuture-logo.png" alt="BrightFuture Builders logo" class="organization-logo">
-            <h3>BrightFuture Builders</h3>
-            <p>info@brightfuture.org</p>
-        </article>
+<main class="organizations-page">
 
+    <section class="page-header">
+        <h1><%= title %></h1>
+        <p>Here are a few of our partner organizations:</p>
+    </section>
 
-        <article class="organization-card">
-            <img src="/images/greenharvest-logo.png" alt="GreenHarvest Growers logo" class="organization-logo">
-            <h3>GreenHarvest Growers</h3>
-            <p>contact@greenharvest.org</p>
-        </article>
+    <section class="organization-grid">
 
-        <article class="organization-card">
-            <img src="/images/unityserve-logo.png" alt="UnityServe Volunteers logo">
-            <h3>UnityServe Volunteers</h3>
-            <p>hello@unityserve.org</p>
-        </article>
-       </section>
-    </main>
+        <% organizations.forEach((organization) => { %>
+
+            <article class="organization-card">
+
+                <img 
+                    src="/images/<%= organization.organization_logo %>" 
+                    alt="<%= organization.organization_name %> logo" 
+                    class="organization-logo"
+                >
+
+                <h3><%= organization.organization_name %></h3>
+
+                <p><%= organization.organization_email %></p>
+
+                <p><%= organization.organization_description %></p>
+
+            </article>
+
+        <% }) %>
+
+    </section>
+
+</main>
+
 <%- include('partials/footer') %>
