@@ -12,39 +12,29 @@
 
           <section class="projects-grid">
 
-    <article class="project-card">
-      <h2>Park Cleanup</h2>
-
-      <p>
-        Join volunteers in cleaning and restoring local parks to create a safer,
-        cleaner, and more enjoyable environment for families and visitors.
-      </p>
-
-      <span class="project-category">Environmental Service</span>
+            <% projects.forEach((project) => { %>
+                <article class="project-card">
+                    <div class="project-date">
+                        <%= new Date(project.project_date).toLocaleDateString(
+                            'en-US', {
+                                weekday: 'long',
+                                year: 'numeric',
+                                month: 'long',
+                                day: 'numeric'
+                            }
+                            ) %>
+                    </div>
+                    <h2><%= project.project_title %></h2>
+                    <h3>
+                        Sponsored by: 
+                        <span><%= project.organization_name %></span>
+                    </h3>
+                    <p><%= project.project_description %></p>
+                       <p class="project-location">
+                    📍 <%= project.location %>
+                </p>
     </article>
-
-    <article class="project-card">
-      <h2>Food Drive</h2>
-
-      <p>
-        Help collect, organize, and distribute food supplies to individuals and
-        families in need within the community.
-      </p>
-
-      <span class="project-category">Community Support</span>
-    </article>
-
-    <article class="project-card">
-      <h2>Community Tutoring</h2>
-
-      <p>
-        Volunteer your time and knowledge by tutoring students in various subjects
-        and supporting academic growth.
-      </p>
-
-      <span class="project-category">Educational Support</span>
-    </article>
-
+    <% }) %>
   </section>
     </main>
 <%- include('partials/footer') %>
