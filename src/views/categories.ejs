@@ -2,21 +2,14 @@
     <main>
         <h1><%= title %></h1>
         <h2>Service Project Categories</h2>
-        <div class="card-grid">
-  <div class="card">
-    <h3>Environmental</h3>
-  </div>
+  <div class="card-grid">
 
-  <div class="card">
-    <h3>Educational</h3>
-  </div>
-
-  <div class="card">
-    <h3>Community Service</h3>
-  </div>
-   <div class="card">
-    <h3>Health and Wellness</h3>
-  </div>
+    <% categories.forEach((category) => { %>
+     <div class="card">
+    <h3><%= category.category_name %></h3>
+  </div> 
+  <% }) %> 
 </div>
+</main>
 
 <%- include('partials/footer') %>
