@@ -32,6 +32,8 @@ VALUES
     'unityserve-logo.png'
 );
 
+
+
 CREATE TABLE service_project (
     project_id SERIAL PRIMARY KEY,
     organization_id INT NOT NULL,
@@ -43,6 +45,7 @@ CREATE TABLE service_project (
         FOREIGN KEY (organization_id)
         REFERENCES organization(organization_id)
 );
+
 
 INSERT INTO service_project (
     organization_id,
@@ -142,7 +145,7 @@ VALUES
     'Westside Neighborhood',
     '2026-08-15'
 );
-
+ 
 CREATE TABLE category (
     category_id SERIAL PRIMARY KEY,
     category_name VARCHAR(150) NOT NULL

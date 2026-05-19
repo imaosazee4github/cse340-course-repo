@@ -1,10 +1,9 @@
 import express from 'express';
 import { testConnection } from './src/models/db.js';
-import { getAllorganizations } from './src/models/organizations.js';
 import {fileURLToPath} from 'url';
 import path from 'path';
-import { getAllProjects } from './src/models/projects.js';
-import { getAllCategories } from './src/models/categories.js';
+
+import routes from './src/routes.js';
 
 const NODE_ENV = process.env.NODE_ENV?.toLowerCase() || 'production';
 const PORT = process.env.PORT || 3000;
@@ -20,31 +19,40 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'src/views'));
 
-app.get('/', async(req, res) => {
-   const title = 'Home';
-   res.render('home', { title });
+app.use((req, res, next) => {
+  if(NODE_ENV === 'development') {
+    console.log(`${req.method} ${req.url}`);
+  }
+  next();
+})
+
+app.use((req, res, next) => {
+  res.locals.NODE_ENV = NODE_ENV;
+  next();
 });
 
-app.get('/organizations', async(req, res) => {
-   const organizations = await getAllorganizations();
-   console.log(organizations);
+app.use(routes);
 
-   const title = 'Our Partner Organizations';
-    res.render("organizations", { title: "organizations", organizations });
-});
+app.use((req, res, next) => {
+  const err = new Error('Page not found');
+  err.status = 404;
+  next(err);
+})
 
-app.get('/projects', async (req, res) => {
-    const projects = await getAllProjects();
-    const title = 'Service Projects';
-    res.render('projects', { title: 'Service Projects', projects });
-});
+app.use((err, req, res, next) => {
+  console.error('Error occurred:', err.message);
+  console.error("Stack trace", err.stack);
 
-app.get('/categories', async(req, res) => {
- const categories = await getAllCategories();
-  res.render('categories', {
-  title: 'Categories',
-   categories
-  });
+  const status = err.status || 500;
+  const template = status === 404 ? '404' : '500';
+
+  const context = {
+      title: status === 404 ? 'Page Not Found' : 'Server Error',
+      error: err.message,
+      stack: err.stack
+  };
+      
+      res.status(status).render(`errors/${template}`, context);
 });
 
 app.listen(PORT, async() => {
