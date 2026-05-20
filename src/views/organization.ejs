@@ -1,0 +1,55 @@
+<%- include('partials/header') %>
+
+<main class="organizaion_details_page">
+    <section class="organization-header">
+<% if (organizationDetails) { %>
+
+<h2><%= organizationDetails.organization_name %></h2>
+    <img
+     src="/images/<%= organizationDetails.organization_logo %>" 
+     alt="<%= organizationDetails.organization_name %> logo" 
+     class="organization-logo"
+     >
+     <% } else { %>
+
+            <p>Organization not found.</p>
+
+        <% } %>
+</section>
+
+<section class="organization-projects">
+
+        <h3>Service Projects</h3>
+
+        <% if (projects && projects.length > 0) { %>
+
+            <ul>
+
+                <% projects.forEach((project) => { %>
+
+                    <li>
+
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a>
+
+                    </li>
+
+                <% }) %>
+
+            </ul>
+
+        <% } else { %>
+
+            <p>No service projects available.</p>
+
+        <% } %>
+
+    </section>
+
+</main>
+
+
+
+<%- include('partials/footer') %>
+

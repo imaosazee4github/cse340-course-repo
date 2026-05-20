@@ -19,7 +19,11 @@
                     class="organization-logo"
                 >
 
-                <h3><%= organization.organization_name %></h3>
+                <h3>
+                    <a href="/organization/<%= organization.organization_id %>">
+                        <%= organization.organization_name %>
+                    </a>
+                </h3>
 
                 <p><%= organization.organization_email %></p>
 
