@@ -1,40 +1,68 @@
 <%- include('partials/header') %>
-    <main class="projects-page">
 
-        <section class="page-header">
-            <h1><%= title %></h1>
-            <h2>Upcoming Service Projects</h2>
-             <p>
-      Discover meaningful opportunities to serve your community, connect with
-      volunteers, and make a positive impact through our upcoming service projects.
-    </p>
-        </section>
+<main class="projects-page">
 
-          <section class="projects-grid">
+    <section class="page-header">
+        <h1><%= title %></h1>
+        <h2>Upcoming Service Projects</h2>
+        <p>
+            Discover meaningful opportunities to serve your community,
+            connect with volunteers, and make a positive impact through
+            our upcoming service projects.
+        </p>
+    </section>
+
+    <section class="projects-grid">
+
+        <% if (projects && projects.length > 0) { %>
 
             <% projects.forEach((project) => { %>
+
                 <article class="project-card">
+
                     <div class="project-date">
                         <%= new Date(project.project_date).toLocaleDateString(
-                            'en-US', {
+                            'en-US',
+                            {
                                 weekday: 'long',
                                 year: 'numeric',
                                 month: 'long',
                                 day: 'numeric'
                             }
-                            ) %>
+                        ) %>
                     </div>
-                    <h2><%= project.project_title %></h2>
+
+                    <h2>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.project_title %>
+                        </a>
+                    </h2>
+
                     <h3>
-                        Sponsored by: 
-                        <span><%= project.organization_name %></span>
+                        Sponsored by:
+                        <a href="/organization/<%= project.organization_id %>">
+                            <%= project.organization_name %>
+                        </a>
                     </h3>
+
                     <p><%= project.project_description %></p>
-                       <p class="project-location">
-                    📍 <%= project.location %>
-                </p>
-    </article>
-    <% }) %>
-  </section>
-    </main>
+
+                    <p class="project-location">
+                        📍 <%= project.location %>
+                    </p>
+
+                </article>
+
+            <% }) %>
+
+        <% } else { %>
+
+            <p>No upcoming service projects available.</p>
+
+        <% } %>
+
+    </section>
+
+</main>
+
 <%- include('partials/footer') %>

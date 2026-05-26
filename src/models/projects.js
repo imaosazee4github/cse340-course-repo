@@ -37,12 +37,12 @@ const getProjectsByOrganizationId = async(organizationId) => {
              project_id,
              organization_id,
              title,
-             project_description,
+             project_description AS description,
              location,
              project_date
         FROM service_project
         WHERE organization_id = $1
-        ORDER BY date;
+        ORDER BY project_date ASC;
         `;
 
         const queryParams = [organizationId];
@@ -52,7 +52,91 @@ const getProjectsByOrganizationId = async(organizationId) => {
 
     }catch(error){
         console.error("Database query error in getProjectsByOrganizationId:", error);
+        return [];
+    }
+};
+
+const getUpcomingProjects = async(number_of_projects) => {
+    try  {
+        const query = `
+        SELECT
+            service_project.project_id,
+            service_project.title,
+            service_project.project_description,
+            service_project.project_date,
+            service_project.location,
+            organization.organization_id,
+            organization.organization_name
+        FROM public.service_project
+        JOIN organization
+            ON service_project.organization_id = organization.organization_id
+        WHERE service_project.project_date >= CURRENT_DATE
+        ORDER BY service_project.project_date ASC
+        LIMIT $1;
+        `;  
+        const result =  await db.query(query, [number_of_projects]);
+        return result.rows;     
+    }catch(error){
+        console.error("Database query error in  getUpcomingProjects:", error);
+        return [];
     }
 }
 
-export { getAllProjects, getProjectsByOrganizationId };
+
+
+const getProjectDetails= async(projectId) => {
+  try{
+    const query = `
+    SELECT 
+         service_project.project_id,
+         service_project.title,
+         service_project.project_description AS description,
+         service_project.project_date AS date,
+         service_project.location,
+         organization.organization_id,
+         organization.organization_name
+    FROM service_project
+    JOIN organization
+        ON service_project.organization_id = organization.organization_id
+    WHERE service_project.project_id = $1;
+    `;
+   const result = await db.query(query, [projectId]);
+   return result.rows.length > 0 
+          ? result.rows[0] 
+          : null;
+
+  }catch(error){
+    console.error("Database query error in getProjectDetails:", error);
+    return null;
+  }
+}
+
+const getCategoriesByProjectId = async(projectId) => {
+    try{
+        const query = `
+        SELECT
+            category.category_id,
+            category.category_name
+        FROM category
+        JOIN project_category
+            ON category.category_id = project_category.category_id
+        WHERE project_category.project_id = $1
+        `;
+        const result = await db.query(query, [projectId]);
+        return result.rows;
+    } catch(error){
+        console.error("Database query error in getCategoriesByProjectId:", error);
+        return [];
+    }
+}
+    
+
+
+export
+ { 
+    getAllProjects,
+    getProjectsByOrganizationId, 
+    getUpcomingProjects, 
+    getProjectDetails, 
+    getCategoriesByProjectId 
+};

@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+<main class="category-details-page container">
+
+    <% if (category) { %>
+
+        <section class="page-header">
+
+            <h1><%= category.category_name %></h1>
+
+        </section>
+
+        <section class="projects-grid">
+
+            <% if (projects.length > 0) { %>
+
+                <% projects.forEach((project) => { %>
+
+                    <article class="project-card">
+
+                        <h2>
+
+                            <a href="/project/<%= project.project_id %>">
+
+                                <%= project.title %>
+
+                            </a>
+
+                        </h2>
+
+                        <p><%= project.description %></p>
+
+                        <p>
+                            📍 <%= project.location %>
+                        </p>
+
+                    </article>
+
+                <% }) %>
+
+            <% } else { %>
+
+                <p>
+                    No projects available for this category.
+                </p>
+
+            <% } %>
+
+        </section>
+
+    <% } else { %>
+
+        <p>Category not found.</p>
+
+    <% } %>
+
+</main>
+
+<%- include('partials/footer') %>

@@ -95,7 +95,7 @@ VALUES
     'Teaching residents sustainable urban farming techniques.',
     'Greenfield Community Center',
     '2026-07-10'
-),
+)
 (
     2,
     'Community Garden Expansion',
