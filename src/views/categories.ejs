@@ -4,6 +4,7 @@
         <h1><%= title %></h1>
          </section>
          <section class="card-grid">
+          <% if (categories && categories.length > 0) { %>
           <% categories.forEach((category) => { %> 
             <article class="card">
               <h2>
@@ -14,6 +15,11 @@
               </h2>
             </article>
          <% }) %>
+           <% } else { %>
+
+             <p>No categories available.</p>
+
+        <% } %>
 
          </section>
 </main>

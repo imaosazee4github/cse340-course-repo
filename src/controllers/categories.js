@@ -39,7 +39,7 @@ const showCategoryDetailsPage = async(req, res) => {
 
 }
 
-const showProjectsDetailsPage = async(req, res) => {
+const showProjectDetailsPage = async(req, res) => {
     const projectId = req.params.id;
 
     const project = await getProjectDetails(projectId);
@@ -60,4 +60,4 @@ const showProjectsDetailsPage = async(req, res) => {
 
 
 
-export {categoriesPage, showCategoryDetailsPage, showProjectsDetailsPage};
+export {categoriesPage, showCategoryDetailsPage, showProjectDetailsPage};

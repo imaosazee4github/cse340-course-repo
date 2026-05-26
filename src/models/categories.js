@@ -13,6 +13,7 @@ const getAllCategories = async() => {
 
     }catch(error){
         console.error("Error getting categories:", error);
+        return [];
     }
 }
 
@@ -21,7 +22,7 @@ const getCategoryDetails = async (categoryId) => {
         const query = `
              SELECT 
                 category_id,
-                category_name,
+                category_name
             FROM category
             WHERE category_id = $1
         `;
