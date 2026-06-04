@@ -10,6 +10,16 @@
      alt="<%= organizationDetails.organization_name %> logo" 
      class="organization-logo"
      >
+
+      <div class="organization-actions">
+            <a
+                href="/edit-organization/<%= organizationDetails.organization_id %>"
+                class="btn edit-btn"
+            >
+                Edit Organization
+            </a>
+        </div>
+        
      <% } else { %>
 
             <p>Organization not found.</p>
