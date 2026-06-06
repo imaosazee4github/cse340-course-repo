@@ -129,6 +129,37 @@ const getCategoriesByProjectId = async(projectId) => {
         return [];
     }
 }
+
+const createProject = async (title, project_description, project_date, location, organization_id) => {
+    const query =  `
+    INSERT INTO service_project (
+    title,
+    project_description,
+    project_date,
+    location,
+    organization_id
+    ) VALUES ($1, $2, $3, $4, $5)
+     RETURNING project_id;
+     `;
+
+     const queryParams = [
+        title,
+        project_description,
+        project_date,
+        location,
+        organization_id
+     ];
+
+     const result = await db.query(query, queryParams);
+
+        if(result.rows.length === 0) {
+            throw new Error("Failed to create project");
+        }
+         if(process.env.ENABLE_SQL_LOGGING === 'true') {
+            console.log('Created new project with ID:', result.rows[0].project_id);
+        }
+        return result.rows[0].project_id;
+}
     
 
 
@@ -138,5 +169,6 @@ export
     getProjectsByOrganizationId, 
     getUpcomingProjects, 
     getProjectDetails, 
-    getCategoriesByProjectId 
+    getCategoriesByProjectId,
+    createProject
 };

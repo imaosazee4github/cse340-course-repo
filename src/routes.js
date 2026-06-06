@@ -9,9 +9,14 @@ import {
     showNewOrganizationForm, 
     showOrganizationDetailsPage } from './controllers/organizations.js';
 import {
+    processNewProjectForm,
+    projectValidation,
+    showNewProjectForm,
     showProjectDetailsPage, 
     showProjectsPage } from './controllers/projects.js';
 import { categoriesPage, 
+    processAssignCategoriesForm, 
+    showAssignCategoriesForm, 
     showCategoryDetailsPage } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
@@ -26,10 +31,13 @@ router.get('/organization/:id', showOrganizationDetailsPage);
 
 router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
+router.get('/new-project', showNewProjectForm);
+router.post('/new-project', projectValidation, processNewProjectForm);
 
 router.get('/categories', categoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
-
+router.get("/assign-categories/:projectId", showAssignCategoriesForm);
+router.post("/assign-categories/:projectId", processAssignCategoriesForm);
 
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);

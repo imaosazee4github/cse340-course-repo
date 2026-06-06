@@ -37,7 +37,7 @@ const getOrganizationDetails =async(organizationId) => {
 
     }catch(error){
         console.error("Database query error in getOrganizationDetails;", error)
-        return null;
+        return [];
     }
 };
 
