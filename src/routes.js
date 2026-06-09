@@ -10,14 +10,24 @@ import {
     showOrganizationDetailsPage } from './controllers/organizations.js';
 import {
     processNewProjectForm,
+    processEditProjectForm,
     projectValidation,
     showNewProjectForm,
+    showEditProjectForm,
     showProjectDetailsPage, 
-    showProjectsPage } from './controllers/projects.js';
+    showProjectsPage 
+} from './controllers/projects.js';
+
 import { categoriesPage, 
     processAssignCategoriesForm, 
     showAssignCategoriesForm, 
-    showCategoryDetailsPage } from './controllers/categories.js';
+    showCategoryDetailsPage,
+    showNewCategoryForm,
+    processNewCategoryForm,
+    showEditCategoryForm,
+    processEditCategoryForm,
+    categoryValidation
+ } from './controllers/categories.js';
 import { testErrorPage } from './controllers/errors.js';
 
 
@@ -33,11 +43,18 @@ router.get('/projects', showProjectsPage);
 router.get('/project/:id', showProjectDetailsPage);
 router.get('/new-project', showNewProjectForm);
 router.post('/new-project', projectValidation, processNewProjectForm);
+router.get('/edit-project/:id', showEditProjectForm);
+router.post('/edit-project/:id', projectValidation, processEditProjectForm);
 
 router.get('/categories', categoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
-router.get("/assign-categories/:projectId", showAssignCategoriesForm);
-router.post("/assign-categories/:projectId", processAssignCategoriesForm);
+router.get("/new-category", showNewCategoryForm);
+
+router.get("/project/:projectId/assign-categories", showAssignCategoriesForm);
+router.post("/project/:projectId/assign-categories",  processAssignCategoriesForm);
+router.post("/new-category", categoryValidation, processNewCategoryForm);
+router.get("/edit-category/:id", showEditCategoryForm);
+router.post("/edit-category/:id",  categoryValidation, processEditCategoryForm);
 
 // Route for new organization page
 router.get('/new-organization', showNewOrganizationForm);
