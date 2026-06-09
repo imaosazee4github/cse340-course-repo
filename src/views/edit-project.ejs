@@ -26,7 +26,9 @@
             <input type="date"
                    name="date"
                    value="<%= project.date ? project.date.toISOString().split('T')[0] : '' %>"
-                   required>
+                   maxlength="150"
+                   required
+                   >
         </div>
 
         <div class="form-group">
