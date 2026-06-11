@@ -28,6 +28,7 @@ import { categoriesPage,
     processEditCategoryForm,
     categoryValidation
  } from './controllers/categories.js';
+ import { showUserRegistrationForm, processUserRegistrationForm } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
 
 
@@ -35,6 +36,9 @@ const router = express.Router();
 
 
 router.get('/', homePage);
+
+router.get('/register', showUserRegistrationForm);
+router.post('/register', processUserRegistrationForm);
 
 router.get('/organizations', organizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);
