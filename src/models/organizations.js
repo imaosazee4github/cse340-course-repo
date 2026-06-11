@@ -53,7 +53,7 @@ const getOrganizationDetails =async(organizationId) => {
 const createOrganization = async (organization_name, organization_description, organization_email, organization_logo) => {
     try {
         const query = `
-        INSERT INTO organization (organization_name, organization_description, organization_email, organization_Logo)
+        INSERT INTO organization (organization_name, organization_description, organization_email, organization_logo)
         VALUES ($1, $2, $3, $4)
         RETURNING organization_id
         `;

@@ -90,6 +90,7 @@ VALUES
     'Community Center',
     '2026-07-05'
 );
+(
 2,
     'Urban Farming Workshop',
     'Teaching residents sustainable urban farming techniques.',
@@ -185,3 +186,118 @@ VALUES
 (11, 4),
 (12, 2),
 (13, 3);
+
+
+INSERT INTO service_project (
+    organization_id,
+    title,
+    project_description,
+    location,
+    project_date
+)
+VALUES
+(
+    1,
+    'Park Cleanup',
+    'Community park environmental cleanup event.',
+    'Central Park',
+    DATE '2026-06-15'
+),
+(
+    1,
+    'Tree Planting Initiative',
+    'Planting trees across local neighborhoods.',
+    'Greenfield',
+    DATE '2026-06-20'
+),
+(
+    1,
+    'Community Recycling Drive',
+    'Promoting recycling awareness.',
+    'City Hall',
+    DATE '2026-06-25'
+),
+(
+    1,
+    'Beach Cleanup',
+    'Volunteer beach sanitation project.',
+    'Ocean View Beach',
+    DATE '2026-07-01'
+),
+(
+    1,
+    'Environmental Awareness Campaign',
+    'Teaching environmental sustainability.',
+    'Community Center',
+    DATE '2026-07-05'
+),
+(
+    2,
+    'Urban Farming Workshop',
+    'Teaching residents sustainable urban farming techniques.',
+    'Greenfield Community Center',
+    DATE '2026-07-10'
+),
+(
+    2,
+    'Community Garden Expansion',
+    'Expanding neighborhood garden spaces for local food production.',
+    'Downtown Garden Park',
+    DATE '2026-07-15'
+),
+(
+    2,
+    'Youth Agriculture Training',
+    'Hands-on farming education for teenagers.',
+    'Harvest Learning Farm',
+    DATE '2026-07-20'
+),
+(
+    2,
+    'Healthy Food Awareness Campaign',
+    'Promoting healthy eating and sustainable food practices.',
+    'City Market Square',
+    DATE '2026-07-25'
+),
+(
+    2,
+    'Sustainable Farming Expo',
+    'Hosting workshops and exhibitions on sustainable farming.',
+    'Agriculture Convention Center',
+    DATE '2026-07-30'
+),
+(
+    3,
+    'Food Donation Drive',
+    'Collecting and distributing food supplies to families in need.',
+    'Community Hall',
+    DATE '2026-08-01'
+),
+(
+    3,
+    'Senior Care Outreach',
+    'Providing support and companionship for senior citizens.',
+    'Sunrise Senior Center',
+    DATE '2026-08-05'
+),
+(
+    3,
+    'Back-to-School Supply Program',
+    'Distributing school supplies to underprivileged children.',
+    'Unity Community Center',
+    DATE '2026-08-10'
+),
+(
+    3,
+    'Neighborhood Volunteer Day',
+    'Organizing volunteers for local cleanup and repair projects.',
+    'Westside Neighborhood',
+    DATE '2026-08-15'
+),
+(
+    3,
+    'Community Health Awareness Program',
+    'Educating residents on health and wellness practices.',
+    'Downtown Health Center',
+    DATE '2026-08-20'
+);
