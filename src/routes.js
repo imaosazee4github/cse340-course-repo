@@ -28,7 +28,7 @@ import { categoriesPage,
     processEditCategoryForm,
     categoryValidation
  } from './controllers/categories.js';
- import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole } from './controllers/users.js';
+ import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUsersPage } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
 
 
@@ -45,6 +45,7 @@ router.post('/login', processLoginForm);
 router.get('/logout', processLogout);
 
 router.get('/dashboard', requireLogin, showDashboard);
+router.get('/users', requireRole('admin'), showUsersPage);
 
 router.get('/organizations', organizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);

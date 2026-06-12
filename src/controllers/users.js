@@ -57,7 +57,7 @@ const processLoginForm = async (req, res) => {
         user_id: user.user_id,
         name: user.name,
         email: user.email,
-        role: user.role_name
+        role_name: user.role_name
     };
 
         req.flash('success', 'Login successful!');
@@ -90,7 +90,27 @@ const showDashboard = (req, res) => {
     res.render('dashboard', {
         title: 'Dashboard',
         name: user.name,
-        email: user.email
+        email: user.email,
+        user
+    });
+};
+
+const showUsersPage = async (req, res) => {
+    const db = (await import('../models/db.js')).default;
+
+    const result = await db.query(`
+        SELECT 
+            u.name,
+            u.email,
+            r.role_name
+        FROM users u
+        JOIN roles r ON u.role_id = r.role_id
+        ORDER BY u.user_id ASC
+    `);
+
+    res.render('users', {
+        title: 'Registered Users',
+        users: result.rows
     });
 };
 
@@ -103,5 +123,6 @@ export {
     processLogout,
     requireLogin,
     showDashboard,
-    requireRole
+    requireRole,
+    showUsersPage
 };
