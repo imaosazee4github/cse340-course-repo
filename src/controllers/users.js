@@ -1,6 +1,23 @@
 import bcrypt from 'bcrypt';
 import { createUser, authenticateUser } from '../models/users.js';
 
+const requireRole = (role) => {
+    return (req, res, next) => {
+
+        if (!req.session || !req.session.user) {
+            req.flash('error', 'You must be logged in.');
+            return res.redirect('/login');
+        }
+
+        if (req.session.user.role_name !== role) {
+            req.flash('error', 'Access denied.');
+            return res.redirect('/');
+        }
+
+        next();
+    };
+};
+
 const showUserRegistrationForm = (req, res) => {
     res.render('register', {
         title: 'Register'
@@ -30,20 +47,26 @@ const processLoginForm = async (req, res) => {
 
     const user = await authenticateUser(email, password);
 
-    if (user) {
-        // Store user in session
-        req.session.user = user;
+    if (!user) {
+        req.flash('error', 'Invalid email or password.');
+        return res.redirect('/login');
+    }
+
+    // Store user in session
+    req.session.user = {
+        user_id: user.user_id,
+        name: user.name,
+        email: user.email,
+        role: user.role_name
+    };
 
         req.flash('success', 'Login successful!');
 
-        console.log('User logged in:', user);
+        console.log('User logged in:', req.session.user);
 
         return res.redirect('/dashboard');
-    }
+    };
 
-    req.flash('error', 'Invalid email or password.');
-    return res.redirect('/login');
-};
 
 const processLogout = (req, res) => {
     if (req.session.user) {
@@ -79,5 +102,6 @@ export {
     processLoginForm,
     processLogout,
     requireLogin,
-    showDashboard
+    showDashboard,
+    requireRole
 };
