@@ -42,14 +42,14 @@ app.use((req, res, next) => {
 })
 
 app.use((req, res, next) => {
-  res.locals.isLoggedIn = false;
+  res.locals.isLoggedIn = !!req.session.user;
 
   if(req.session && req.session.user) {
     res.locals.isLoggedIn = true;
   }
 
   res.locals.user = req.session.user || null;
-  
+
   res.locals.NODE_ENV = NODE_ENV;
   // res.locals.user = req.session.user || null;
 

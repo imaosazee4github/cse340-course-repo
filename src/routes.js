@@ -59,19 +59,19 @@ router.post('/edit-project/:id', requireRole('admin'), projectValidation, proces
 
 router.get('/categories', categoriesPage);
 router.get('/category/:id', showCategoryDetailsPage);
-router.get("/new-category", showNewCategoryForm);
+router.get("/new-category", requireRole('admin'), showNewCategoryForm);
 
 router.get("/project/:projectId/assign-categories", requireRole('admin'), showAssignCategoriesForm);
 router.post("/project/:projectId/assign-categories", requireRole('admin'), processAssignCategoriesForm);
-router.post("/new-category", categoryValidation, processNewCategoryForm);
+router.post("/new-category", requireRole('admin'), categoryValidation, processNewCategoryForm);
 router.get("/edit-category/:id", requireRole('admin'), showEditCategoryForm);
 router.post("/edit-category/:id", requireRole('admin'), categoryValidation, processEditCategoryForm);
 
 // Route for new organization page
 router.get('/new-organization', requireRole('admin'), showNewOrganizationForm);
 router.post('/new-organization', requireRole('admin'), organizationValidation, processNewOrganizationForm);
-router.get('/edit-organization/:id', showEditOrganizationForm);
-router.post('/edit-organization/:id', organizationValidation, processEditOrganizationForm);
+router.get('/edit-organization/:id', requireRole('admin'), showEditOrganizationForm);
+router.post('/edit-organization/:id', requireRole('admin'), organizationValidation, processEditOrganizationForm);
 
 router.get('/test-error', testErrorPage); 
 
