@@ -22,12 +22,15 @@
         <% } %>
 
          </section>
+         <% if (isLoggedIn && user && user.role_name === 'admin') { %>
          <p class="new-project-link">
     <a href="/new-category"
        class="btn btn-primary">
        + Add Category
     </a>
+
 </p>
+ <% } %>
 </main>
 
 <%- include('partials/footer') %>

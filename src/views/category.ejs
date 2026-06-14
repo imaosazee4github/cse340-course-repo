@@ -48,12 +48,7 @@
 
         </section>
 
-    <% } else { %>
-
-        <p>Category not found.</p>
-
-    <% } %>
-
+ <% if (isLoggedIn && user && user.role_name === 'admin') { %>
     <div class="project-actions">
     <a
         href="/edit-category/<%= category.category_id %>"
@@ -64,6 +59,12 @@
     </a>
 </div>
 
+ <% } %>
+  <% } else { %>
+
+    <p>Category not found.</p>
+
+  <% } %>
 </main>
 
 <%- include('partials/footer') %>

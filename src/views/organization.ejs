@@ -10,7 +10,7 @@
      alt="<%= organizationDetails.organization_name %> logo" 
      class="organization-logo"
      >
-
+  <% if (isLoggedIn && user && user.role_name === 'admin') { %>
       <div class="organization-actions">
             <a
                 href="/edit-organization/<%= organizationDetails.organization_id %>"
@@ -19,6 +19,7 @@
                 Edit Organization
             </a>
         </div>
+        <% } %>
         
      <% } else { %>
 
@@ -58,7 +59,6 @@
     </section>
 
 </main>
-
 
 
 <%- include('partials/footer') %>

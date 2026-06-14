@@ -54,7 +54,7 @@
         <p>Project not found.</p>
 
     <% } %>
-
+<% if (isLoggedIn && user && user.role_name === 'admin') { %>
    <div class="project-actions">
     <a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">
         Edit Project
@@ -64,6 +64,7 @@
         Manage Categories
     </a>
 </div>
+<% } %>
 
 </main>
 

@@ -34,6 +34,7 @@
         <% }) %>
 
     </section>
+<% if (isLoggedIn && user && user.role_name === 'admin') { %>
 <div class="add-organization-container">
 
     <a href="/new-organization" class="add-organization-btn">
@@ -41,6 +42,7 @@
     </a>
 
 </div>
+<% } %>
 
 
 </main>

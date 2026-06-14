@@ -62,11 +62,13 @@
         <% } %>
 
     </section>
+    <% if (isLoggedIn && user && user.role_name === 'admin') { %>
    <p class="new-project-link">
     <a href="/new-project" class="btn btn-primary">
         + Add a New Service Project
     </a>
 </p>
+<% } %>
 
 
 </main>
