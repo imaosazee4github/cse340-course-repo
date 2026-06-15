@@ -196,6 +196,53 @@ const updateProject = async (
 
     return result.rows[0].project_id;
 };
+
+const getProjectDetailsWithVolunteerStatus = async (projectId, userId = null) => {
+    const projectQuery = `
+        SELECT 
+            sp.project_id,
+            sp.title,
+            sp.project_description as description,
+            sp.project_date as date,
+            sp.location,
+            o.organization_id,
+            o.organization_name
+        FROM service_project sp
+        JOIN organization o ON sp.organization_id = o.organization_id
+        WHERE sp.project_id = $1
+    `;
+    
+    const projectResult = await db.query(projectQuery, [projectId]);
+    
+    if (projectResult.rows.length === 0) {
+        return null;
+    }
+    
+    const project = projectResult.rows[0];
+    
+    // Get volunteer count
+    const countQuery = `
+        SELECT COUNT(*) as count
+        FROM project_volunteers
+        WHERE project_id = $1
+    `;
+    const countResult = await db.query(countQuery, [projectId]);
+    project.volunteer_count = parseInt(countResult.rows[0].count);
+    
+    // Check if user is a volunteer (if userId provided)
+    if (userId) {
+        const volunteerQuery = `
+            SELECT * FROM project_volunteers
+            WHERE user_id = $1 AND project_id = $2
+        `;
+        const volunteerResult = await db.query(volunteerQuery, [userId, projectId]);
+        project.isVolunteer = volunteerResult.rows.length > 0;
+    } else {
+        project.isVolunteer = false;
+    }
+    
+    return project;
+};
     
 
 
@@ -207,5 +254,6 @@ export
     getProjectDetails, 
     getCategoriesByProjectId,
     createProject,
-    updateProject
+    updateProject,
+    getProjectDetailsWithVolunteerStatus
 };

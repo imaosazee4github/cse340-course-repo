@@ -18,7 +18,8 @@ import {
     showProjectsPage 
 } from './controllers/projects.js';
 
-import { categoriesPage, 
+import { 
+    categoriesPage, 
     processAssignCategoriesForm, 
     showAssignCategoriesForm, 
     showCategoryDetailsPage,
@@ -28,8 +29,18 @@ import { categoriesPage,
     processEditCategoryForm,
     categoryValidation
  } from './controllers/categories.js';
- import { showUserRegistrationForm, processUserRegistrationForm, showLoginForm, processLoginForm, processLogout, requireLogin, showDashboard, requireRole, showUsersPage } from './controllers/users.js';
+ import {
+     showUserRegistrationForm, 
+     processUserRegistrationForm, 
+     showLoginForm, 
+     processLoginForm, 
+     processLogout, 
+     requireLogin, 
+     showDashboard, 
+     requireRole, 
+     showUsersPage } from './controllers/users.js';
 import { testErrorPage } from './controllers/errors.js';
+import { addVolunteerForProject, removeVolunteerFromProject } from './controllers/volunteers.js';
 
 
 const router = express.Router();
@@ -46,6 +57,9 @@ router.get('/logout', processLogout);
 
 router.get('/dashboard', requireLogin, showDashboard);
 router.get('/users', requireRole('admin'), showUsersPage);
+
+router.post('/project/:id/volunteer', requireLogin, addVolunteerForProject);
+router.post('/project/:id/remove-volunteer', requireLogin, removeVolunteerFromProject);
 
 router.get('/organizations', organizationsPage);
 router.get('/organization/:id', showOrganizationDetailsPage);

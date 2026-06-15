@@ -324,3 +324,19 @@ CREATE TABLE users (
         FOREIGN KEY (role_id)
         REFERENCES roles(role_id)
 );
+
+CREATE TABLE project_volunteers (
+    user_id INT NOT NULL,
+    project_id INT NOT NULL,
+    volunteered_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id, project_id),
+    CONSTRAINT fk_volunteer_user
+        FOREIGN KEY (user_id)
+        REFERENCES users(user_id) ON DELETE CASCADE,
+    CONSTRAINT fk_volunteer_project
+        FOREIGN KEY (project_id)
+        REFERENCES service_project(project_id) ON DELETE CASCADE
+);
+
+CREATE INDEX idx_project_volunteers_user_id ON project_volunteers(user_id);
+CREATE INDEX idx_project_volunteers_project_id ON project_volunteers(project_id);

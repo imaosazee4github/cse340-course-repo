@@ -52,8 +52,37 @@
     <% } else { %>
 
         <p>Project not found.</p>
+        
+        <% } %>
 
-    <% } %>
+         <% if (isLoggedIn) { %>
+            <div class="volunteer-section">
+                <% if (project.isVolunteer) { %>
+                    <div class="volunteer-status status-active">
+                        <p>✅ You are currently volunteering for this project!</p>
+                        <form action="/project/<%= project.project_id %>/remove-volunteer" method="POST">
+                            <button type="submit" class="btn btn-warning">
+                                Remove Volunteering
+                            </button>
+                        </form>
+                    </div>
+                <% } else { %>
+                    <div class="volunteer-status status-inactive">
+                        <p>🤝 Interested in helping? Sign up as a volunteer!</p>
+                        <form action="/project/<%= project.project_id %>/volunteer" method="POST">
+                            <button type="submit" class="btn btn-success">
+                                Volunteer for This Project
+                            </button>
+                        </form>
+                    </div>
+                <% } %>
+            </div>
+        <% } else { %>
+            <div class="volunteer-section">
+                <p>🔒 Please <a href="/login">login</a> to volunteer for this project.</p>
+            </div>
+        <% } %>
+
 <% if (isLoggedIn && user && user.role_name === 'admin') { %>
    <div class="project-actions">
     <a href="/edit-project/<%= project.project_id %>" class="btn btn-primary">

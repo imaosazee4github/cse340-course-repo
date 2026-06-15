@@ -2,6 +2,7 @@ import { body, validationResult } from "express-validator";
 import { getAllorganizations } from "../models/organizations.js";
 import {getAllProjects, getUpcomingProjects,  getCategoriesByProjectId, getProjectDetails, createProject } from "../models/projects.js";
 import { updateProject } from "../models/projects.js";
+import { getProjectWithVolunteerStatus } from "../models/volunteers.js";
 // import { getProjectCategories } from "../models/projects.js";
 
 
@@ -61,8 +62,9 @@ const showProjectsPage = async(req, res) => {
 
 const showProjectDetailsPage = async(req, res) => {
     const projectId = req.params.id;
+    const userId = req.session.user ? req.session.user.user_id : null;
 
-    const project = await getProjectDetails(projectId);
+    const project = await getProjectWithVolunteerStatus(projectId, userId);
     const categories = await getCategoriesByProjectId(projectId);
 
     if(!project){

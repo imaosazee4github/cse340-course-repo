@@ -3,16 +3,45 @@
 <main class="dashboard">
     <h1><%= title %></h1>
 
-    <h2>Dashboard</h2>
+    <h2>Welcome <%= name %>!</h2>
 
-    <p><strong>Name:</strong> <%= name %></p>
+
     <p><strong>Email:</strong> <%= email %></p>
 
     <% if (user && user.role_name === 'admin') { %>
     <p>
-        <a href="/users">View Registered Users</a>
+        <a href="/users" class="btn btn-secondary">View Registered Users</a>
     </p>
 <% } %>
+ <section class="volunteered-projects">
+        <h3>Projects I'm Volunteering For</h3>
+        
+        <% if (volunteeredProjects && volunteeredProjects.length > 0) { %>
+            <% volunteeredProjects.forEach(project => { %>
+                <div class="volunteer-project-card">
+                    <h4>
+                        <a href="/project/<%= project.project_id %>">
+                            <%= project.title %>
+                        </a>
+                    </h4>
+                    <p><strong>Organization:</strong> <%= project.organization_name %></p>
+                    <p><strong>Date:</strong> <%= new Date(project.project_date).toLocaleDateString() %></p>
+                    <p><strong>Location:</strong> 📍 <%= project.location %></p>
+                    <p><%= project.project_description %></p>
+                    <p><small>Volunteered on: <%= new Date(project.volunteered_at).toLocaleDateString() %></small></p>
+                    
+                    <form action="/project/<%= project.project_id %>/remove-volunteer" method="POST">
+                        <button type="submit" class="btn btn-danger btn-small">
+                            Remove Volunteering
+                        </button>
+                    </form>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <p>You haven't volunteered for any projects yet.</p>
+            <p><a href="/projects" class="btn btn-primary">Browse Projects to Volunteer</a></p>
+        <% } %>
+    </section>
 </main>
 
 <%- include('partials/footer') %>
